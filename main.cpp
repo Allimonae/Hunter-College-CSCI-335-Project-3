@@ -2,6 +2,8 @@
 #include <fstream>
 #include "StdSort.hpp"
 #include "QuickSelect1.hpp"
+#include "QuickSelect2.hpp"
+#include "CountingSort.hpp"
 
 int main(){
     std::ifstream file("test_input.txt");
@@ -11,12 +13,11 @@ int main(){
     }
     std::string header;
     getline(file, header); // Read the first line
-    //std::cout << "Header: " << header << std::endl; // Print the first line
-    // std::vector<int> data;
-    // std::string line;
-    // while (file >> line){
-    //     data.push_back(stoi(line));
-    // }
-    std::vector<int> data = {6373, 5137, 7058, 6861, 6106, 5630, 5719, 5897, 5504};
-    quickSelect1(header, data);
+    std::vector<int> data;
+    std::string line;
+    while (file >> line){
+        data.push_back(stoi(line));
+    }
+    //std::vector<int> data = {6373, 5137, 7058, 6861, 6106, 5630, 5719, 5897, 5504};
+    countingSort(header, data);
 }

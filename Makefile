@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -std=c++17 -g -Wall -O2
 
 PROG ?= main
-OBJS = QuickSelect1.o StdSort.o main.o
+OBJS = CountingSort.o QuickSelect2.o QuickSelect1.o StdSort.o InsertionSort.o main.o
 
 all: $(PROG)
 
