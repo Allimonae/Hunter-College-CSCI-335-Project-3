@@ -4,11 +4,8 @@
 void stdSort(const std::string& header, std::vector<int> data){
     std::sort(data.begin(), data.end());
     int median_index = (data.size())/2 - 1;
-    std::cout << median_index << " ";
     int p25_index = (median_index)/2;
-    std::cout << p25_index << " ";
     int p75_index = (median_index + data.size())/2;
-    std::cout << p75_index << std::endl;
 
     std::cout << header
               << "\nMin: " << data[0]
