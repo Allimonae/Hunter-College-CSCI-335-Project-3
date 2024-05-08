@@ -19,5 +19,8 @@ int main(){
         data.push_back(stoi(line));
     }
     //std::vector<int> data = {6373, 5137, 7058, 6861, 6106, 5630, 5719, 5897, 5504};
-    countingSort(header, data);
+    stdSort(header, data);
+    quickSelect1(header, data);
+    // quickSelect2(header, data);
+    // countingSort(header, data);
 }

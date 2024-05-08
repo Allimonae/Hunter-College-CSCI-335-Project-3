@@ -6,5 +6,6 @@
 
 void quickSelect2(const std::string& header, std::vector<int> data);
 std::vector<int> quickSelect2Helper(std::vector<int>& data, int left, int right, std::vector<int> k);
+int median3(std::vector<int> & a, int left, int right);
 
 #endif

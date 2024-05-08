@@ -7,11 +7,8 @@ void quickSelect2(const std::string& header, std::vector<int> data){
 }
 
 std::vector<int> quickSelect2Helper(std::vector<int>& data, int left, int right, std::vector<int> k){
-    std::vector<int> selected;
     if (left + 20 <= right){
-        std::vector<int> pivotarray = {data[(left + right)/2], data[left], data[right]};
-        std::sort(pivotarray.begin(), pivotarray.end());
-        int pivot = pivotarray[1];        
+        int pivot = median3(data, left, right);
         int i = left;
         int j = right - 1;
         while (true){           
@@ -31,22 +28,38 @@ std::vector<int> quickSelect2Helper(std::vector<int>& data, int left, int right,
             }
         }
         std::swap(data[i], data[right - 1]);
-
-        // if (k < i){
-        //     quickSelect2Helper(data, left, i - 1, k);
-        // }
-        // else if (k > i + 1){
-        //     quickSelect2Helper(data, i + 1, right, k);
-        // }
-        // else {
-        //     selected.push_back(data[i]);
-        // }
     }
-    else {
-        insertionSort(data, left, right);
-        //selected.push_back(data[k-1]);
-    }
-    if (k.empty()){
-        return selected;
-    }
+    //     if (k < i){
+    //         return quickSelectHelper(data, left, i - 1, k);
+    //     }
+    //     else if (k > i + 1){
+    //         return quickSelectHelper(data, i + 1, right, k);
+    //     }
+    //     else {
+    //         return data[i];
+    //     }
+    // }
+    // else {
+    //     insertionSort(data, left, right);
+    //     return data[k - 1];
+    // }
 }
+
+/**
+ * Return median of left, center, and right.
+ * Order these and hide the pivot.
+ */
+int median3(std::vector<int> & a, int left, int right){
+    int center = ( left + right ) / 2;
+
+    if (a[center] < a[left])
+        std::swap( a[left], a[center]);
+    if (a[right] < a[left])
+        std::swap( a[ left ], a[right]); 
+    if (a[right] < a[center])
+        std::swap(a[center], a[right]);
+        
+    std::swap(a[center], a[right - 1]);
+    return a[right - 1];
+}
+
