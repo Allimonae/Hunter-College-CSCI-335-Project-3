@@ -7,16 +7,10 @@ void quickSelect2(const std::string& header, std::vector<int> data)
     int median_index = data.size()/2;
     int p25_index = median_index/2;
     int p75_index = (median_index + data.size())/2;
-    // int median_index = (data.size())/2 - 1;
-    // int p25_index = (median_index)/2;
-    // int p75_index = (median_index + data.size())/2;
-    
 
-    std::vector<int> keys = {0, p25_index - 1, median_index - 1, p75_index - 1, 1000};
+    std::vector<int> keys = {1, p25_index, median_index, p75_index, (int)data.size()};
     quickSelect2Helper(data, 0, data.size() - 1, keys);
-    for (int i = 0; i < data.size(); i++){
-        std::cout << i << ": " << data[i] << std::endl;
-    }
+    
     std::cout << header
               << "\nMin: " << data[0]
               << "\nP25: " << data[p25_index - 1]
@@ -45,27 +39,21 @@ void quickSelect2Helper(std::vector<int>& data, int left, int right, std::vector
         }
 
         std::swap(data[i], data[right - 1]); // Restore pivot
-        // partition: return i
 
-        std::vector<int> keysInRange;
+        std::vector<int> keysToCheck;
         for (auto key : keys) {
-            if (key >= left && key <= right)
-                keysInRange.push_back(key);
+            if (key >= left && key <= right + 1)
+                keysToCheck.push_back(key);
         }
-
-        if (!keysInRange.empty()) {
-            for (auto key : keysInRange) {
-                if (key == i + 1){
-                    std::cout << "Element at position " << key << ": " << data[i] << std::endl;
-                }
-                if (key <= i) {
-                    quickSelect2Helper(data, left, i - 1, keys);
-                } 
-                else if (key > i + 1){
-                    quickSelect2Helper(data, i + 1, right, keys);
-                }
+    
+        for (auto key : keysToCheck) {
+            if (key <= i) {
+                quickSelect2Helper(data, left, i - 1, keys);
+            } 
+            else if (key > i + 1){
+                quickSelect2Helper(data, i + 1, right, keys);
             }
-        } 
+        }
     }
     else {
         insertionSort(data, left, right);

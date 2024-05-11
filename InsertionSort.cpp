@@ -24,8 +24,4 @@ void insertionSort(std::vector<int>& data, int left, int right){
             data[j] = std::move(data[j - 1]);
         data[j] = std::move(tmp);
     }
-    for (int i = left; i < right + 1; i++){
-        std::cout << data[i] << "-" << i << " ";
-    }
-    std::cout << std::endl;
 }
