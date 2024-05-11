@@ -5,7 +5,7 @@
 #include <vector>
 
 void quickSelect1(const std::string& header, std::vector<int> data);
-int quickSelectHelper(std::vector<int>& data, int left, int right, int k);
+void quickSelect1Helper(std::vector<int>& data, int left, int right, int k);
 int medianof3(std::vector<int> & a, int left, int right);
 
 #endif

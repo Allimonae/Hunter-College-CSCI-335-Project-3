@@ -1,42 +1,55 @@
-#include <random>
+/**
+ * CSCI 335 Project 3
+ * Spring 2024
+ * Created by Allison Lee
+ * 
+*/
 #include <algorithm>
 #include "QuickSelect1.hpp"
 #include "InsertionSort.hpp"
 
 void quickSelect1(const std::string& header, std::vector<int> data){
-    int median_index = (data.size())/2;
-    int p25_index = (median_index)/2;
-    int p75_index = (median_index + data.size())/2;
-    int p50 = quickSelectHelper(data, 0, data.size() - 1, median_index);
+    quickSelect1Helper(data, 0, data.size() - 1, data.size()/2);
     
     auto middle = data.begin() + data.size()/2;
     std::partition(data.begin(), data.end(), [middle](int value){
         return value < *middle;
     });
-    int p25 = quickSelectHelper(data, 0, data.size()/2 - 1, p25_index);
-    int p75 = quickSelectHelper(data, data.size()/2, data.size() - 1, p75_index);
+    std::vector<int> first_half(data.begin(), data.begin() + data.size()/2);
+    std::vector<int> second_half(data.begin() + data.size()/2, data.end());
+    quickSelect1Helper(first_half, 0, first_half.size() - 1, first_half.size()/2);
+    quickSelect1Helper(second_half, 0, second_half.size() - 1, second_half.size()/2);
     
-    auto bottom = data.begin() + data.size()/4;
-    std::partition(data.begin(), data.end(), [bottom](int value){
+    auto bottom = first_half.begin() + first_half.size()/2;
+    std::partition(first_half.begin(), first_half.end(), [bottom](int value){
         return value < *bottom;
     });
-    int min = quickSelectHelper(data, 0, data.size()/4 - 1, 1);
+    std::vector<int> lower_quarter(first_half.begin(), first_half.begin() + first_half.size()/2);
+    quickSelect1Helper(lower_quarter, 0, lower_quarter.size() - 1, 1);
     
-    auto top = data.begin() + 3 * data.size()/4;
-    std::partition(data.begin(), data.end(), [top](int value){
+    auto top = second_half.begin() + second_half.size()/2;
+    std::partition(second_half.begin(), second_half.end(), [top](int value){
         return value < *top;
     });
-    int max = quickSelectHelper(data, 3 * data.size()/4, data.size() - 1, data.size());
-    
+    std::vector<int> upper_quarter(second_half.begin() + second_half.size()/2, second_half.end());
+    quickSelect1Helper(upper_quarter, 0, upper_quarter.size() - 1, upper_quarter.size());
+
     std::cout << header
-              << "\nMin: " << min
-              << "\nP25: " << p25
-              << "\nP50: " << p50
-              << "\nP75: " << p75
-              << "\nMax: " << max << std::endl;
+              << "\nMin: " << lower_quarter[0]
+              << "\nP25: " << first_half[first_half.size()/2 - 1]
+              << "\nP50: " << data[data.size()/2 - 1]
+              << "\nP75: " << second_half[second_half.size()/2 - 1]
+              << "\nMax: " << upper_quarter[upper_quarter.size() - 1] << std::endl;
 }
 
-int quickSelectHelper(std::vector<int>& data, int left, int right, int k)
+/**
+ * 
+ * @param:  data is a vector of int values extracted from input file
+ * @param:  left is an int value indicating the index where the subarray starts, calculated from quickSelect
+ * @param:  right is an int value indicating the index where the subarray ends, calculated from quickSelect
+ * @post:   
+*/
+void quickSelect1Helper(std::vector<int>& data, int left, int right, int k)
 {
     if (left + 20 <= right)
     {
@@ -48,6 +61,7 @@ int quickSelectHelper(std::vector<int>& data, int left, int right, int k)
         for( ; ; ){           
             while(data[++i] < pivot){ }
             while(pivot < data[--j]){ }
+            
             if (i < j)
                 std::swap(data[i], data[j]);
             else 
@@ -57,18 +71,14 @@ int quickSelectHelper(std::vector<int>& data, int left, int right, int k)
         std::swap(data[i], data[right - 1]); // Restore pivot
 
         if (k <= i){
-            return quickSelectHelper(data, left, i - 1, k);
+            quickSelect1Helper(data, left, i - 1, k);
         }
         else if (k > i + 1){
-            return quickSelectHelper(data, i + 1, right, k);
-        }
-        else {
-            return data[i];
+            quickSelect1Helper(data, i + 1, right, k);
         }
     }
     else {
         insertionSort(data, left, right);
-        return data[k - 1];
     }
 }
 
