@@ -14,7 +14,7 @@
 
 int main(){
     // Read input file
-    std::ifstream file("test_input3.txt");
+    std::ifstream file("test_input.txt");
     if (file.fail()){
         std::cerr << "File cannnot be opened for reading" << std::endl;
         exit(1);
