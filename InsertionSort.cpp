@@ -2,11 +2,12 @@
  * CSCI 335 Project 3
  * Spring 2024
  * Created by Allison Lee
- * InsertionSort is a helper for QuickSelect1 and QuickSelect2.
+ * InsertionSort is a used in QuickSelect1 and QuickSelect2.
 */
 #include "InsertionSort.hpp"
 
 /**
+ * modified from the textbook: Data Structions and Algorithms in C++ 4th edition by Mark Allen Weiss p. 293
  * InsertionSort is called when quickSelect is called on a range of 20 or less elements, or when left + 20 > right
  * @param:  data is a vector of int values extracted from input file
  * @param:  left is an int value indicating the index where the subarray starts, calculated from quickSelect
@@ -20,7 +21,7 @@ void insertionSort(std::vector<int>& data, int left, int right){
         int tmp = std::move(data[p]);
 
         int j;
-        for (j = p; j > left && tmp < data[j - 1]; --j)
+        for (int j = p; j > left && tmp < data[j - 1]; --j)
             data[j] = std::move(data[j - 1]);
         data[j] = std::move(tmp);
     }

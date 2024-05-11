@@ -1,3 +1,10 @@
+/**
+ * CSCI 335 Project 3
+ * Spring 2024
+ * Created by Allison Lee
+ * main implements and tests functions from project 3
+*/
+
 #include <iostream>
 #include <fstream>
 #include "StdSort.hpp"
@@ -7,7 +14,7 @@
 
 int main(){
     // Read input file
-    std::ifstream file("test_input.txt");
+    std::ifstream file("test_input3.txt");
     if (file.fail()){
         std::cerr << "File cannnot be opened for reading" << std::endl;
         exit(1);
@@ -28,7 +35,7 @@ int main(){
     // stdSort(header, data);
     // quickSelect1(header, data);
     // quickSelect2(header, data);
-    countingSort(header, data);
+    // countingSort(header, data);
     
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - beg);
