@@ -32,10 +32,10 @@ int main(){
     }
     auto beg = std::chrono::high_resolution_clock::now();
  
-    // stdSort(header, data);
-    // quickSelect1(header, data);
-    // quickSelect2(header, data);
-    // countingSort(header, data);
+    stdSort(header, data);
+    quickSelect1(header, data);
+    quickSelect2(header, data);
+    countingSort(header, data);
     
     auto end = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - beg);
