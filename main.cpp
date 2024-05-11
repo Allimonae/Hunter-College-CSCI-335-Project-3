@@ -23,9 +23,14 @@ int main(){
     while (file >> line){
         data.push_back(stoi(line));
     }
-
+    auto beg = std::chrono::high_resolution_clock::now();
+ 
     // stdSort(header, data);
     // quickSelect1(header, data);
-    quickSelect2(header, data);
-    // countingSort(header, data);
+    // quickSelect2(header, data);
+    countingSort(header, data);
+    
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - beg);
+    std::cout << "Elapsed Time: " << duration.count() << " microseconds";
 }
